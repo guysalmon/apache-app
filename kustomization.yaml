@@ -1,2 +1,9 @@
 resources:
-  - deployment.yaml
+  - deployment.yaml        # 👈 References the existing deployment and service
+
+configMapGenerator:        # 👈 NEW: Generates a ConfigMap from your HTML file
+  - name: apache-html
+    files:
+      - html/index.html    #     This is the file inside your GitHub repo
+generatorOptions:
+  disableNameSuffixHash: true  # 👈 Ensures the ConfigMap name stays predictable (i.e. "apache-html")
