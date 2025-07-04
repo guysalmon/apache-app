@@ -17,6 +17,13 @@ spec:
           image: httpd:2.4.38
           ports:
             - containerPort: 80
+          volumeMounts:                         # ⬅️ NEW: Mount the ConfigMap as a volume
+            - name: apache-content              #     Mount it into Apache's web root
+              mountPath: /usr/local/apache2/htdocs
+      volumes:                                  # ⬅️ NEW: Define the ConfigMap volume
+        - name: apache-content
+          configMap:
+            name: apache-html                   #     Name matches what you define in kustomization.yaml
 ---
 apiVersion: v1
 kind: Service
